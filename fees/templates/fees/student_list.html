@@ -1,0 +1,67 @@
+{% extends 'fees/base.html' %}
+
+{% block content %}
+<h1>Students</h1>
+
+<div class="card mt-4">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5>Student List - {{ current_month }}</h5>
+        <div>
+            
+            <a href="/admin/fees/student/add/" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add Student
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        
+                        <th>Name</th>
+                        <th>Father's Name</th>
+                        <th>Mother's Name</th>
+                        <th>Class</th>
+                        <th>Fee Amount</th>
+                        <th>Current Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr>
+                        
+                        <td>{{ student.first_name }}</td>
+                        <td>{{ student.father_name|default:"-" }}</td>
+                        <td>{{ student.mother_name|default:"-" }}</td>
+                        <td>{{ student.student_class.name }}</td>
+                        <td>₹{{ student.fee_amount }}</td>
+                        <td>
+                            <span class="badge bg-{% if student.status == 'paid' %}success{% else %}danger{% endif %}">
+                                {{ student.status }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{% url 'fees:student_detail' student.id %}" class="btn btn-sm btn-info">
+                                <i class="bi bi-eye"></i> View
+                            </a>
+                            <a href="{% url 'fees:mark_payment' student.id %}" class="btn btn-sm btn-primary">
+                                <i class="bi bi-cash-coin"></i> Mark Payment
+                            </a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8" class="text-center">No students found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</script>
+{% endblock %}

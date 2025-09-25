@@ -1,0 +1,29 @@
+{% extends 'fees/base.html' %}
+
+{% block content %}
+<h1>Dashboard</h1>
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card text-white bg-success mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Paid Fees</h5>
+                <p class="card-text display-4">{{ paid_count }}</p>
+                <p class="card-text">Students who have paid for {{ current_month }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card text-white bg-danger mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Unpaid Fees</h5>
+                <p class="card-text display-4">{{ unpaid_count }}</p>
+                <p class="card-text">Students who haven't paid for {{ current_month }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4">
+    <a href="{% url 'fees:student_list' %}" class="btn btn-primary">View All Students</a>
+</div>
+{% endblock %}
